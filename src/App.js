@@ -34,13 +34,14 @@ class BooksApp extends React.Component {
     console.log('UPDATING to '+ newShelf)
     console.log(this.state)
     BooksAPI.update(book,newShelf)
+    
 
     let updatedBooks = this.state.books.map(v => {
 
       if (book.id === v.id) {
-        console.log(book.id)
+        //console.log(book.id)
         v.shelf = newShelf
-        console.log(v)
+        //console.log(v)
         return v
       } else {
         return v
@@ -48,7 +49,7 @@ class BooksApp extends React.Component {
 
     })
 
-    console.log(updatedBooks);
+    //console.log(updatedBooks);
     this.setState({books: updatedBooks})
 
 
