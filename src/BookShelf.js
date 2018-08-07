@@ -1,7 +1,7 @@
 import React from 'react' 
 import BookShelfChanger from './BookShelfChanger'
 
-class ReadBookShelf extends React.Component {
+class BookShelf extends React.Component {
 
 
     render(){
@@ -10,7 +10,7 @@ class ReadBookShelf extends React.Component {
     
         return(
             <div className="bookshelf">
-            <h2 className="bookshelf-title">Read Books</h2>
+            <h2 className="bookshelf-title"> Books</h2>
             <div className="bookshelf-books">
                 <ol className="books-grid">
                     {
@@ -43,4 +43,4 @@ class ReadBookShelf extends React.Component {
 
 
 
-export default ReadBookShelf
+export default BookShelf

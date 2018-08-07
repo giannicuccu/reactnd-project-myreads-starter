@@ -1,7 +1,9 @@
 import React from 'react'
-import ReadingBookShelf from './ReadingBookShelf';
-import WantReadBookShelf from './WantReadBookShelf';
-import ReadBookShelf from './ReadBookShelf';
+import { Link } from 'react-router-dom'
+// import ReadingBookShelf from './ReadingBookShelf';
+// import WantReadBookShelf from './WantReadBookShelf';
+// import ReadBookShelf from './ReadBookShelf';
+import BookShelf from './BookShelf';
 
 class BooksList extends React.Component {
 
@@ -23,11 +25,21 @@ class BooksList extends React.Component {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        <ReadingBookShelf  updateShelf={updateShelf} readingBooks={readingBooks}/>
-                        <WantReadBookShelf updateShelf={updateShelf} readingBooks={wantReadBooks}/>
-                        <ReadBookShelf updateShelf={updateShelf} readingBooks={readBooks}/>
+                        {/* <ReadingBookShelf  updateShelf={updateShelf} books={readingBooks}/>
+                        <WantReadBookShelf updateShelf={updateShelf} books={wantReadBooks}/>
+                        <ReadBookShelf     updateShelf={updateShelf} books={readBooks}/> */}
+
+                        <BookShelf     updateShelf={updateShelf} books={readingBooks}/> 
+                        <BookShelf     updateShelf={updateShelf} books={wantReadBooks}/> 
+                        <BookShelf     updateShelf={updateShelf} books={readBooks}/> 
                     </div>
                 </div>
+
+            <div className="open-search">
+            {/* <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a> */}
+            <Link to='/search' />
+            </div>
+
             </div>
             
             
