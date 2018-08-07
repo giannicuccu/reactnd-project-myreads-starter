@@ -37,7 +37,7 @@ class BooksApp extends React.Component {
     // console.log(this.state)
     BooksAPI.update(book,newShelf)
     
-
+    // TODO: you are not removing from state
     let updatedBooks = this.state.books.map( v => {
       if (book.id === v.id) {
           v.shelf = newShelf
@@ -47,6 +47,7 @@ class BooksApp extends React.Component {
 
     //console.log(updatedBooks);
     this.setState({books: updatedBooks})
+    
     
   }
 
