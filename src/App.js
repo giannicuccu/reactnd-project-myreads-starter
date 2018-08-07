@@ -33,8 +33,8 @@ class BooksApp extends React.Component {
   }
 
   updateShelf(book,newShelf){
-    console.log('UPDATING to '+ newShelf)
-    console.log(this.state)
+    // console.log('UPDATING to '+ newShelf)
+    // console.log(this.state)
     BooksAPI.update(book,newShelf)
     
 
@@ -47,22 +47,6 @@ class BooksApp extends React.Component {
 
     //console.log(updatedBooks);
     this.setState({books: updatedBooks})
-
-
-  //    this.setState( state => { books: state.books.map( v => { 
-  //     //return book.id === v.id? v.shelf=newShelf :  v}
-  //   if(book.id === v.id){
-  //     console.log(book.id )
-  //     v.shelf = newShelf
-  //     console.log(v )
-  //     return v
-  //   }else{return v}
-
-  // }
-  //   ) } ) 
-    
-    
-    
     
   }
 
@@ -78,7 +62,7 @@ class BooksApp extends React.Component {
             }} />  
 
             <Route exact path='/search' render={ () => {
-              return <BookSearch /> 
+              return <BookSearch  updateShelf={this.updateShelf} /> 
             }} />
        
       </div>
