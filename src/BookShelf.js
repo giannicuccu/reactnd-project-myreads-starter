@@ -7,7 +7,7 @@ class BookShelf extends React.Component {
 
     render(){
 
-        const { updateShelf, books, shelfLabel } = this.props
+        const { updateShelf, books, shelfLabel, fromSearch } = this.props
         
         return(
             <div className="bookshelf">
@@ -20,7 +20,7 @@ class BookShelf extends React.Component {
                                     <div className="book">
                                         <div className="book-top">
                                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url( ${ book.imageLinks ? book.imageLinks.thumbnail: placeholder} )` }}></div>
-                                                <BookShelfChanger updateShelf={updateShelf} book={book}/>
+                                                <BookShelfChanger updateShelf={updateShelf} fromSearch={fromSearch} book={book}/>
                                             </div>
                                         <div className="book-title"> { book.title } </div>
                                         <div className="book-authors">{ book.authors? book.authors.join(' , ') : 'Author Unavailable'}</div>
@@ -38,10 +38,6 @@ class BookShelf extends React.Component {
 
 
 }
-
-
-
-
 
 
 export default BookShelf

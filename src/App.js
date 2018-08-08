@@ -32,22 +32,30 @@ class BooksApp extends React.Component {
     })
   }
 
-  updateShelf(book,newShelf){
+  updateShelf( book, newShelf, fromSearch = false){
     // console.log('UPDATING to '+ newShelf)
-    // console.log(this.state)
+    //  console.log(this.state)
+    //  console.log(fromSearch)
     BooksAPI.update(book,newShelf)
     
     // TODO: you are not removing from state
-    let updatedBooks = this.state.books.map( v => {
+    let books = this.state.books.map( v => {
       if (book.id === v.id) {
           v.shelf = newShelf
         }
       return v
     })
 
-    //console.log(updatedBooks);
-    this.setState({books: updatedBooks})
-    
+    if (fromSearch === true){ 
+      
+      book.shelf = newShelf;
+      books.push(book);
+    }
+
+    // console.log(books);
+    // console.log(this.state)
+    this.setState({ books })
+    //console.log(this.state)
     
   }
 

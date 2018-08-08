@@ -7,13 +7,13 @@ class BooksSearch extends React.Component {
 
   state = {
     query: '',
-    books: []
+    foundBooks: []
   }
 
   search = (query) => {
     this.setState({ query: query })
-    BooksAPI.search(query).then((books) => {
-      this.setState({ books })
+    BooksAPI.search(query).then((foundBooks) => {
+      this.setState({ foundBooks })
      
 
     })
@@ -21,7 +21,7 @@ class BooksSearch extends React.Component {
     render(){
       
       const { updateShelf } = this.props
-      const { query, books } = this.state
+      const { query, foundBooks } = this.state
         return (
             <div className="search-books">
             <div className="search-books-bar">
@@ -48,7 +48,7 @@ class BooksSearch extends React.Component {
             <div className="search-books-results">
             <p>Results for: {query}</p>
               <ol className="books-grid">
-              <BookShelf updateShelf={updateShelf} books={books}  shelfLabel={'results'} />
+              <BookShelf updateShelf={updateShelf} books={foundBooks} fromSearch={true} shelfLabel={'results for '+ query } />
               </ol>
             </div>
           </div>
