@@ -29,9 +29,9 @@ class BooksList extends React.Component {
                         <WantReadBookShelf updateShelf={updateShelf} books={wantReadBooks}/>
                         <ReadBookShelf     updateShelf={updateShelf} books={readBooks}/> */}
 
-                        <BookShelf updateShelf={updateShelf} books={readingBooks} shelfLabel={'Reading Books'} /> 
-                        <BookShelf updateShelf={updateShelf} books={wantReadBooks}  shelfLabel={'Want read books'} /> 
-                        <BookShelf updateShelf={updateShelf} books={readBooks}  shelfLabel={'Read books'} /> 
+                        <BookShelf updateShelf={updateShelf} books={readingBooks} shelfLabel={'Currently Reading'} /> 
+                        <BookShelf updateShelf={updateShelf} books={wantReadBooks}  shelfLabel={'Want to read '} /> 
+                        <BookShelf updateShelf={updateShelf} books={readBooks}  shelfLabel={'Read'} /> 
                     </div>
                 </div>
 

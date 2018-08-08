@@ -4,8 +4,21 @@ class ReadBookShelfChanger extends React.Component {
 
     handleShelfChange = (e) => {
         //console.log(e.target.value);
-            this.props.updateShelf(this.props.book, e.target.value, this.props.fromSearch);
+        //this.props.fromSearch && this.props.checkForBookInShelf( this.props.book ) 
+        this.props.updateShelf(this.props.book, e.target.value, this.props.fromSearch);
+
         }
+
+
+    getBookShelfFromMyLibrary(){
+
+        // if (this.props.fromSearch){
+
+        //     this.props.checkForBookInShelf( this.props.book )
+        // }
+
+        return this.props.checkForBookInShelf( this.props.book )
+    }
 
     render(){
         //console.log(this.props.book)
@@ -16,7 +29,7 @@ class ReadBookShelfChanger extends React.Component {
         return(
             
             <div className="book-shelf-changer" >
-                <select value={shelf || 'move'} onChange={this.handleShelfChange}>
+                <select value={ shelf || this.getBookShelfFromMyLibrary() } onChange={this.handleShelfChange}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>

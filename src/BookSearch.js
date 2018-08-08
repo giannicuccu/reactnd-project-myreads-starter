@@ -5,31 +5,44 @@ import BookShelf from './BookShelf';
 
 class BooksSearch extends React.Component {
 
-  state = {
-    query: '' ,
-    foundBooks: []
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      query: '' ,
+      foundBooks: []
+    }
+    
   }
 
 
-search = (query) => {
-  this.setState({ query: query })
-  console.log(query)
+  // componentDidUpdate(){
+  //   console.log('Child BooksSearch update')
+  // }
 
-  if (query.trim() !== '') {
-    BooksAPI.search(query).then((foundBooks) => {
-        !foundBooks.error && this.setState({ foundBooks })
-         foundBooks.error && this.setState({ foundBooks: [] })
-      })
-  } else if (query.trim() === '') {
-      this.setState({ foundBooks: [] })
-    }
+  // componentWillUnmount() {
+  //   console.log('Child BooksSearch has been unmounted')
+  // }
 
-}
+  search = (query) => {
+    this.setState({ query: query })
+    console.log(query)
+
+    if (query.trim() !== '') {
+      BooksAPI.search(query).then((foundBooks) => {
+          !foundBooks.error && this.setState({ foundBooks })
+          foundBooks.error && this.setState({ foundBooks: [] })
+        })
+    } else if (query.trim() === '') {
+        this.setState({ foundBooks: [] })
+      }
+
+  }
 
 
     render(){
       
-      const { updateShelf } = this.props
+      const { updateShelf, checkForBookInShelf } = this.props
       const { query, foundBooks } = this.state
         return (
             <div className="search-books">
@@ -57,7 +70,7 @@ search = (query) => {
             <div className="search-books-results">
             <p>Results for: {query}</p>
               <ol className="books-grid">
-              <BookShelf updateShelf={updateShelf} books={foundBooks} fromSearch={true} shelfLabel={'results for '+ query } />
+              <BookShelf updateShelf={updateShelf} books={foundBooks} fromSearch={true} shelfLabel={'results for '+ query } checkForBookInShelf={checkForBookInShelf} />
               </ol>
             </div>
           </div>

@@ -11,7 +11,8 @@ class BooksApp extends React.Component {
   constructor(props) {
     super(props);
     this.updateShelf = this.updateShelf.bind(this);
-
+    this.checkForBookInShelf = this.checkForBookInShelf.bind(this);
+    
     this.state = {
       /**
        * TODO: Instead of using this state variable to keep track of which page
@@ -59,6 +60,17 @@ class BooksApp extends React.Component {
     
   }
 
+
+  checkForBookInShelf(book){
+
+    //console.log('check for book id ' + book.id)
+
+    const match = this.state.books.filter(v => v.id === book.id ? v : false )
+    //console.log(match.length)
+    return match.length ? match[0].shelf : 'none'
+    //return match[0].shelf || 'none'
+  }
+
   
 
   render() {
@@ -71,7 +83,7 @@ class BooksApp extends React.Component {
             }} />  
 
             <Route exact path='/search' render={ () => {
-              return <BookSearch  updateShelf={this.updateShelf} /> 
+              return <BookSearch  updateShelf={this.updateShelf} checkForBookInShelf={this.checkForBookInShelf}/> 
             }} />
        
       </div>
