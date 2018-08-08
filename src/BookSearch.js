@@ -6,18 +6,27 @@ import BookShelf from './BookShelf';
 class BooksSearch extends React.Component {
 
   state = {
-    query: '',
+    query: '' ,
     foundBooks: []
   }
 
-  search = (query) => {
-    this.setState({ query: query })
-    BooksAPI.search(query).then((foundBooks) => {
-      this.setState({ foundBooks })
-     
 
-    })
-  }
+search = (query) => {
+  this.setState({ query: query })
+  console.log(query)
+
+  if (query.trim() !== '') {
+    BooksAPI.search(query).then((foundBooks) => {
+        !foundBooks.error && this.setState({ foundBooks })
+         foundBooks.error && this.setState({ foundBooks: [] })
+      })
+  } else if (query.trim() === '') {
+      this.setState({ foundBooks: [] })
+    }
+
+}
+
+
     render(){
       
       const { updateShelf } = this.props
