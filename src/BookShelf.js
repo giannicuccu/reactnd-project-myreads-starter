@@ -1,13 +1,13 @@
-import React from 'react' 
-import BookShelfChanger from './BookShelfChanger'
-import placeholder from './placeholders/cover-unavailable.png'
+import React from 'react' ;
+import BookShelfChanger from './BookShelfChanger' ;
+import placeholder from './placeholders/cover-unavailable.png' ;
 
 class BookShelf extends React.Component {
 
 
     render(){
 
-        const { updateShelf, books, shelfLabel, fromSearch, checkForBookInShelf } = this.props
+        const { updateShelf, books, shelfLabel, fromSearch, checkForBookInShelf } = this.props ;
         
         return(
             <div className="bookshelf">

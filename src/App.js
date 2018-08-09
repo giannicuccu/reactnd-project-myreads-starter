@@ -10,17 +10,11 @@ class BooksApp extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.updateShelf = this.updateShelf.bind(this);
     this.checkForBookInShelf = this.checkForBookInShelf.bind(this);
     
     this.state = {
-      /**
-       * TODO: Instead of using this state variable to keep track of which page
-       * we're on, use the URL in the browser's address bar. This will ensure that
-       * users can use the browser's back and forward buttons to navigate between
-       * pages, as well as provide a good URL they can bookmark and share.
-       */
-      //showSearchPage: false,
       books : []
     }
   }
@@ -29,18 +23,16 @@ class BooksApp extends React.Component {
   // Get books via API
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      this.setState({ books })
+      this.setState({ books });
     })
   }
 
   updateShelf( book, newShelf, fromSearch = false){
-    //debugger
-    // console.log('UPDATING to '+ newShelf)
-    //  console.log(this.state)
-    //  console.log(fromSearch)
+   
+    //TODO: use promises here
     BooksAPI.update(book,newShelf)
     
-    // TODO: you are not removing from state
+    //TODO: Books assigned to "none" could be removed from state
     let books = this.state.books.map( v => {
       if (book.id === v.id) {
           v.shelf = newShelf
@@ -48,29 +40,21 @@ class BooksApp extends React.Component {
       return v
     })
 
+    //Avoid duplicated books added via search
     if (fromSearch === true){ 
-      // TODO: you must remove duplicates books that can be added from search
-      books = books.filter( v => v.id !== book.id)      
+      books = books.filter( v => v.id !== book.id)
       book.shelf = newShelf;
       books.push(book);
     }
 
-    // console.log(books);
-    // console.log(this.state)
     this.setState({ books })
-    //console.log(this.state)
-    
+
   }
 
 
   checkForBookInShelf(book){
-
-    //console.log('check for book id ' + book.id)
-
-    const match = this.state.books.filter(v => v.id === book.id ? v : false )
-    //console.log(match.length)
-    return match.length ? match[0].shelf : 'none'
-    //return match[0].shelf || 'none'
+    const match = this.state.books.filter(v => v.id === book.id ? v : false );
+    return match.length ? match[0].shelf : 'none';
   }
 
   
