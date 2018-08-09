@@ -10,7 +10,9 @@ class BooksList extends React.Component {
 
 
     render(){
+        
         const { books, updateShelf } = this.props ;
+
         const readBooks = books.filter(v => v.shelf === 'read') ;
         const readingBooks = books.filter(v => v.shelf === 'currentlyReading') ;
         const wantReadBooks = books.filter(v => v.shelf === 'wantToRead') ;
