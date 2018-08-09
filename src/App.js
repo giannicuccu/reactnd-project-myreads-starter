@@ -34,6 +34,7 @@ class BooksApp extends React.Component {
   }
 
   updateShelf( book, newShelf, fromSearch = false){
+    //debugger
     // console.log('UPDATING to '+ newShelf)
     //  console.log(this.state)
     //  console.log(fromSearch)
@@ -48,7 +49,8 @@ class BooksApp extends React.Component {
     })
 
     if (fromSearch === true){ 
-      
+      // TODO: you must remove duplicates books that can be added from search
+      books = books.filter( v => v.id !== book.id)      
       book.shelf = newShelf;
       books.push(book);
     }
