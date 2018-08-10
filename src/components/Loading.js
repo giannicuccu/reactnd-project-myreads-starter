@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
+import PropTypes from 'prop-types';
 
-export default class LoadingBar extends Component {
-    
+
+class LoadingBar extends Component {
+  
   render() {
     return (
       <div>
@@ -12,3 +14,9 @@ export default class LoadingBar extends Component {
     )
   }
 }
+
+LoadingBar.propTypes = {
+  show: PropTypes.bool.isRequired
+};
+
+export default LoadingBar

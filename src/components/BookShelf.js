@@ -1,6 +1,7 @@
-import React from 'react' ;
-import BookShelfChanger from './BookShelfChanger' ;
-import placeholder from '../placeholders/cover-unavailable.png' ;
+import React from 'react';
+import BookShelfChanger from './BookShelfChanger';
+import placeholder from '../placeholders/cover-unavailable.png';
+import PropTypes from 'prop-types';
 
 class BookShelf extends React.Component {
 
@@ -8,11 +9,11 @@ class BookShelf extends React.Component {
 
     render(){
 
-        const { updateShelf, books, shelfLabel, fromSearch, checkForBookInShelf,searchMessage } = this.props ;
+        const { updateShelf, books, shelfLabel, fromSearch, checkForBookInShelf, searchMessage } = this.props ;
         
         return(
             <div className="bookshelf">
-            <h2 className="bookshelf-title"> { fromSearch && books.length === 0 && shelfLabel !== ''? 'Searching... '+ shelfLabel : shelfLabel} </h2>
+            <h2 className="bookshelf-title"> { fromSearch && books.length === 0 && shelfLabel !== ''? 'Searching... ' + shelfLabel : shelfLabel} </h2>
             {searchMessage}
             <div className="bookshelf-books">
                 <ol className="books-grid">
@@ -38,8 +39,16 @@ class BookShelf extends React.Component {
 
     }
 
-
 }
+
+BookShelf.propTypes = {
+    updateShelf: PropTypes.func.isRequired,
+    books: PropTypes.array.isRequired,
+    shelfLabel: PropTypes.string, 
+    fromSearch: PropTypes.bool, 
+    checkForBookInShelf: PropTypes.func, 
+    searchMessage: PropTypes.string
+  };
 
 
 export default BookShelf

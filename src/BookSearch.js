@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import BookShelf from './components/BookShelf';
 import LoadingBar from './components/Loading';
+import PropTypes from 'prop-types';
 
 
 
@@ -42,7 +43,7 @@ class BooksSearch extends React.Component {
     let promise = new Promise( function(resolve, reject) {
       
       
-      BooksAPI.instantSearch(query)
+      BooksAPI.search(query)
       .then( res => {
           //console.log( query +' -- '+ currentQuery());
           if(query === currentQuery()){
@@ -69,7 +70,7 @@ class BooksSearch extends React.Component {
       
     });
     
-    console.log(promise)
+    //console.log(promise)
 
     promise.then(
       result => {
@@ -120,5 +121,11 @@ class BooksSearch extends React.Component {
         )
     }
 }
+
+
+BooksSearch.propTypes = {
+  updateShelf: PropTypes.func.isRequired,
+  checkForBookInShelf: PropTypes.func.isRequired
+};
 
 export default BooksSearch
