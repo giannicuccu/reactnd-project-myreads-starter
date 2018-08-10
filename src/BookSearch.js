@@ -7,6 +7,7 @@ import LoadingBar from './Loading'
 
 
 
+
 class BooksSearch extends React.Component {
 
   constructor(props) {
@@ -20,6 +21,12 @@ class BooksSearch extends React.Component {
 
   }
 
+  getCurrentQuery = () =>  this.state.query
+  setResults = (results) => {
+    //console.log('setting results')
+    //console.log(results)
+    this.setState({ foundBooks: results } )}
+
   // componentDidUpdate(){
   //   NOOP
   // }
@@ -28,49 +35,55 @@ class BooksSearch extends React.Component {
   //   NOP
   // }
 
-  //TODO: fix the search showing last search when rapidly.delete keys
-  search = (query) => {
-    
+  instantSearch = (query, prevQuery = this.state.query, currentQuery = this.getCurrentQuery, setResults=this.setResults) => {
     this.setState({ query });
     this.setState({ loading: true });
 
-    BooksAPI.search(query).then( (foundBooks) => {
-      this.setState({ foundBooks: []});
-      console.log('-------------------')
-      console.log(this.state.query)
-      console.log(foundBooks)
-      console.log('-------------------')
-      console.log('    #     ')
-
-      if (this.state.query !== '' && !foundBooks.error){
-        this.setState({ foundBooks })
-        
-      }
-        
-      }).then(()=> (this.setState({ loading: false })))
-
-    //   if (this.state.query.trim() === '') {
-    //     this.setState({ foundBooks: []});
-    //     return
-    //   } else if (this.state.query.trim() !== '') {
-    //     BooksAPI.search(query).then((foundBooks) => {
-    //       console.log(foundBooks)
-    //         // !foundBooks.error && this.setState({ foundBooks });
-    //         // foundBooks.error && this.setState({ foundBooks: [] });
-    //       })
-    // } 
-
-/*     if (query.trim() !== '') {
-      BooksAPI.search(query).then((foundBooks) => {
-          !foundBooks.error && this.setState({ foundBooks });
-           foundBooks.error && this.setState({ foundBooks: [] });
-        })
-    } else if (query.trim() === '') {
-        this.setState({ foundBooks: [] });
-      } */
-
+    let promise = new Promise( function(resolve, reject) {
       
+      BooksAPI.search(query)
+      .then( res => {
+        //console.log( query +' -- '+ currentQuery());
+        if(query === currentQuery()){
+          //debugger
+          //console.log(res)
+
+          if ( res === undefined || res.error ){
+            setResults([])
+          }
+
+          else{
+            setResults(res)
+            
+          }
+          resolve()
+        }
+          else{
+            reject()
+            //setResults([])
+            //console.log('INVALID not in sync with current query');
+          }
+      }
+    
+    
+    ).catch(() =>  new Error('MY FETCH FAILED'))
+     
+      //setTimeout(() => reject(new Error(query+'-'+prevQuery)), 1000);
+
+
+    });
+
+    promise.then(
+      result => {
+        console.log('PROMISE RESOLVED')
+        this.setState({ loading: false })
+      },         
+      error => {
+        console.log('RESPONSE DISCARDED - NOT IN SYNC WITH CURRENT SEARCH INPUT ') 
+      }// shows "Error: Whoops!" after 1 second
+    )
   }
+
 
 
   render(){
@@ -88,14 +101,13 @@ class BooksSearch extends React.Component {
                 type="text" 
                 placeholder="Search by title or author" 
                 value={query}
-                onChange={(event) => this.search(event.target.value)}
+                onChange={(event) => this.instantSearch(event.target.value)}
                 />
             </div>
             </div>
             <div className="search-books-results">
             
-              <p>Results for: {query}</p>
-                <ol className="books-grid">
+                  <ol className="books-grid">
                   <BookShelf 
                     updateShelf={updateShelf} 
                     books={foundBooks} 

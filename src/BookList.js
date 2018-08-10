@@ -1,8 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import ReadingBookShelf from './ReadingBookShelf';
-// import WantReadBookShelf from './WantReadBookShelf';
-// import ReadBookShelf from './ReadBookShelf';
 import BookShelf from './BookShelf';
 
 class BooksList extends React.Component {
@@ -10,7 +7,7 @@ class BooksList extends React.Component {
 
 
     render(){
-        
+
         const { books, updateShelf } = this.props ;
 
         const readBooks = books.filter(v => v.shelf === 'read') ;
