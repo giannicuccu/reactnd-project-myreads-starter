@@ -1,5 +1,6 @@
 # MyReads Project
 This is an implementation of React MyReader App for Udacity's React Fundamentals course. 
+This project was started forking and cloning the start repository.
 
 
 ## Installation and Run
@@ -7,7 +8,7 @@ This is an implementation of React MyReader App for Udacity's React Fundamentals
 * clone this repository
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
-* point your browser to  [http://localhost:3000/]
+* point your browser to (http://localhost:3000/)
 
 ## Final project file structure
 ```bash
