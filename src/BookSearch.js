@@ -21,7 +21,7 @@ class BooksSearch extends React.Component {
     }
 
   }
-
+  
   getCurrentQuery = () =>  this.state.query
   setResults = (results) => this.setState({ foundBooks: results } )
   setSearchMessage = (message) => this.setState({ searchMessage: message } )
@@ -42,7 +42,7 @@ class BooksSearch extends React.Component {
 
     let promise = new Promise( function(resolve, reject) {
       
-      
+      // The solution was inspired by a mentor response on the Udacity forum
       BooksAPI.search(query)
       .then( res => {
           //console.log( query +' -- '+ currentQuery());
