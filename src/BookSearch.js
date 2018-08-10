@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
-import BookShelf from './BookShelf';
-import LoadingBar from './Loading'
-
+import BookShelf from './components/BookShelf';
+import LoadingBar from './components/Loading';
 
 
 
@@ -16,16 +15,15 @@ class BooksSearch extends React.Component {
     this.state = {
       query: '' ,
       loading: false,
+      searchMessage : '',
       foundBooks: []
     }
 
   }
 
   getCurrentQuery = () =>  this.state.query
-  setResults = (results) => {
-    //console.log('setting results')
-    //console.log(results)
-    this.setState({ foundBooks: results } )}
+  setResults = (results) => this.setState({ foundBooks: results } )
+  setSearchMessage = (message) => this.setState({ searchMessage: message } )
 
   // componentDidUpdate(){
   //   NOOP
@@ -35,52 +33,52 @@ class BooksSearch extends React.Component {
   //   NOP
   // }
 
-  instantSearch = (query, prevQuery = this.state.query, currentQuery = this.getCurrentQuery, setResults=this.setResults) => {
+  search = (query, currentQuery = this.getCurrentQuery, setResults = this.setResults, setSearchMessage = this.setSearchMessage) => {
+
+    //debugger
     this.setState({ query });
     this.setState({ loading: true });
 
     let promise = new Promise( function(resolve, reject) {
       
-      BooksAPI.search(query)
+      
+      BooksAPI.instantSearch(query)
       .then( res => {
-        //console.log( query +' -- '+ currentQuery());
-        if(query === currentQuery()){
-          //debugger
-          //console.log(res)
+          //console.log( query +' -- '+ currentQuery());
+          if(query === currentQuery()){
 
-          if ( res === undefined || res.error ){
-            setResults([])
-          }
-
-          else{
-            setResults(res)
+            if ( res === undefined || res.error ){ 
+              res ? setSearchMessage('No results matching your query'): setSearchMessage('');
+              setResults([]);
+              
+            } else { 
+              setSearchMessage('');
+              setResults(res);
+            }
             
+            resolve();
+
+          } else {
+            reject();
           }
-          resolve()
         }
-          else{
-            reject()
-            //setResults([])
-            //console.log('INVALID not in sync with current query');
-          }
-      }
-    
-    
-    ).catch(() =>  new Error('MY FETCH FAILED'))
-     
-      //setTimeout(() => reject(new Error(query+'-'+prevQuery)), 1000);
 
-
+      )
+      // THIS DOES NOT WORK
+      //.catch(() =>  new Error('FETCH FAILED'))
+      
     });
+    
+    console.log(promise)
 
     promise.then(
       result => {
-        console.log('PROMISE RESOLVED')
+        //console.log('PROMISE RESOLVED')
         this.setState({ loading: false })
-      },         
+      },
       error => {
-        console.log('RESPONSE DISCARDED - NOT IN SYNC WITH CURRENT SEARCH INPUT ') 
-      }// shows "Error: Whoops!" after 1 second
+        //console.log('RESPONSE DISCARDED - NOT IN SYNC WITH CURRENT SEARCH INPUT ') 
+      }
     )
   }
 
@@ -89,11 +87,11 @@ class BooksSearch extends React.Component {
   render(){
       
       const { updateShelf, checkForBookInShelf } = this.props
-      const { query, loading, foundBooks } = this.state
+      const { query, loading, foundBooks, searchMessage } = this.state
         return (
           
             <div className="search-books">
-            <LoadingBar  show={ loading }  />
+            <LoadingBar show={ loading } />
             <div className="search-books-bar">
             <Link to='/' className="close-search"/>
             <div className="search-books-input-wrapper">
@@ -101,7 +99,7 @@ class BooksSearch extends React.Component {
                 type="text" 
                 placeholder="Search by title or author" 
                 value={query}
-                onChange={(event) => this.instantSearch(event.target.value)}
+                onChange={(event) => this.search(event.target.value)}
                 />
             </div>
             </div>
@@ -109,11 +107,12 @@ class BooksSearch extends React.Component {
             
                   <ol className="books-grid">
                   <BookShelf 
-                    updateShelf={updateShelf} 
-                    books={foundBooks} 
-                    fromSearch={true} 
-                    shelfLabel={'results for '+ query } 
-                    checkForBookInShelf={checkForBookInShelf} 
+                    updateShelf={updateShelf}
+                    books={foundBooks}
+                    fromSearch={true}
+                    shelfLabel={query}
+                    searchMessage = {searchMessage}
+                    checkForBookInShelf={checkForBookInShelf}
                   />
                 </ol>
             </div>

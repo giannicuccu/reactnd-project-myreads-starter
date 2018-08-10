@@ -1,17 +1,19 @@
 import React from 'react' ;
 import BookShelfChanger from './BookShelfChanger' ;
-import placeholder from './placeholders/cover-unavailable.png' ;
+import placeholder from '../placeholders/cover-unavailable.png' ;
 
 class BookShelf extends React.Component {
 
+    
 
     render(){
 
-        const { updateShelf, books, shelfLabel, fromSearch, checkForBookInShelf } = this.props ;
+        const { updateShelf, books, shelfLabel, fromSearch, checkForBookInShelf,searchMessage } = this.props ;
         
         return(
             <div className="bookshelf">
-            <h2 className="bookshelf-title"> {shelfLabel} </h2>
+            <h2 className="bookshelf-title"> { fromSearch && books.length === 0 && shelfLabel !== ''? 'Searching... '+ shelfLabel : shelfLabel} </h2>
+            {searchMessage}
             <div className="bookshelf-books">
                 <ol className="books-grid">
                     {

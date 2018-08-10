@@ -42,3 +42,19 @@ export const search = (query) =>
     body: JSON.stringify({ query })
   }).then(res => res.json())
     .then(data => data.books)
+
+
+    export const instantSearch = (query) =>
+    fetch(`${api}/search`, {
+      method: 'POST',
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ query })
+    }).then(res => {
+      console.log(res.body)
+      return res.json()
+    }).then(data => data.books)
+      
+
