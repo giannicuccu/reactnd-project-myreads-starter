@@ -24,6 +24,8 @@ This project was started forking and cloning the start repository.
     ├── App.js # This is the root of the  app.
     ├── App.test.js # Used for testing. Provided with Create React App.
     ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
+    ├── BooksList.js # NEW FILE # the main home page component
+    ├── BooksSearch.js # NEW FILE # the main search page component
     ├── components # NEW FOLDER # React app components.
     │   ├── BookShelf.js # NEW FILE # Component thath display shelves in home and search page
     │   ├── BookShelfChanger.js # NEW FILE # Component for the shelf selector
