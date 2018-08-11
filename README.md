@@ -8,7 +8,7 @@ This project was started forking and cloning the start repository.
 * clone this repository
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
-* point your browser to (http://localhost:3000/)
+* point your browser to [http://localhost:3000/](http://localhost:3000/)
 
 ## Final project file structure
 ```bash
@@ -32,6 +32,7 @@ This project was started forking and cloning the start repository.
     │   ├── add.svg
     │   ├── arrow-back.svg
     │   └── arrow-drop-down.svg
+    │   └── busy.svg # NEW FILE # loading icon for shelf select
     ├── placeholders # NEW FOLDER # Image placeholders.
     │   └── cover-unavailable.png # NEW FILE # placeholder for unavailable covers
     ├── index.css # Global styles. 
@@ -49,6 +50,11 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 ## Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+
+## Loaders Icon
+https://github.com/SamHerbert/SVG-Loaders
+https://github.com/lonelyclick/react-loading-bar
+
 
 ## Contributing
 feel free to send pull requests to this repo
