@@ -3,9 +3,32 @@ import PropTypes from 'prop-types';
 
 class BookShelfChanger extends React.Component {
 
+    state = {
+        busy: false
+    }
 
-    handleShelfChange = (e) => {        
-        this.props.updateShelf(this.props.book, e.target.value, this.props.fromSearch);
+//     componentWillReceiveProps (){
+//         console.log('WILL RECEIVE PROPS')
+//     }
+
+//     componentDidUpdate(){
+//         console.log('DID UPDATE')
+//   }
+
+ 
+//   componentWillUnmount() {
+//     console.log('WILL UNMOUNT')
+//   }
+ 
+
+
+    handleShelfChange = (e, updateShelf=this.props.updateShelf, book=this.props.book, fromSearch=this.props.fromSearch) => {
+
+            this.setState({busy: true});
+
+            updateShelf(book, e.target.value, fromSearch)
+            .then(()=> fromSearch && this.setState({busy: false}));
+
         }
 
 
@@ -14,12 +37,16 @@ class BookShelfChanger extends React.Component {
     }
 
     render(){
+        //console.log('RENDER')
 
         const { shelf } = this.props.book ;
+
+        let className = 'book-shelf-changer ';
+            className += this.state.busy ? 'busy':'ready';
     
         return(
             
-            <div className="book-shelf-changer" >
+            <div className={className}>
                 <select value={ shelf || this.getBookShelfFromMyLibrary() } onChange={this.handleShelfChange}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>

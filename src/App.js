@@ -17,7 +17,7 @@ class BooksApp extends React.Component {
     this.state = {
       books : []
     }
-  }
+  };
 
 
   // Get books via API
@@ -27,28 +27,35 @@ class BooksApp extends React.Component {
     })
   }
 
-  updateShelf( book, newShelf, fromSearch = false){
-   
-    //TODO: use promises here
-    BooksAPI.update(book,newShelf)
+  updateShelf = ( book, newShelf, fromSearch = false) => {
     
-    //TODO: Books assigned to "none" could be removed from state
-    let books = this.state.books.map( v => {
-      if (book.id === v.id) {
-          v.shelf = newShelf
-        }
-      return v
-    })
+    let promise = new Promise( (resolve, reject) => {
 
-    //Avoid duplicated books added via search
-    if (fromSearch === true){ 
-      books = books.filter( v => v.id !== book.id)
-      book.shelf = newShelf;
-      books.push(book);
-    }
+      BooksAPI.update(book,newShelf)
+      .then(() => {
+        //TODO: Books assigned to "none" could be removed from state
+        let books = this.state.books.map( v => {
+          if (book.id === v.id) {
+              v.shelf = newShelf;
+            }
+            return v
+          });
+          
+        //Filter out duplicated books added via search
+        if (fromSearch === true){ 
+          books = books.filter( v => v.id !== book.id)
+          book.shelf = newShelf;
+          books.push(book);
+        };
 
-    this.setState({ books })
+        this.setState({ books })
+        resolve()
 
+      }
+    )
+  });
+
+  return promise
   }
 
 
