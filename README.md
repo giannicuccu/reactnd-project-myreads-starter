@@ -10,6 +10,10 @@ This project was started forking and cloning the start repository.
 * start the development server with `npm start`
 * point your browser to [http://localhost:3000/](http://localhost:3000/)
 
+
+## Live demo
+[https://myreadsprj.firebaseapp.com/](https://myreadsprj.firebaseapp.com/)
+
 ## Final project file structure
 ```bash
 ├── CONTRIBUTING.md
